@@ -17,17 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/produk', function () {
+    return view('input_produk');
 });
+Route::get('/kategori', function () {
+    return view('input_kategori');
+});
+
 //Route::get('/produk',[ProdukController::class, 'index']);
 //Route::get('/kategori',[KategoriController::class, 'index']);
 Route::get('/banner',[BannerController::class,'index']);
 Route::get('/produk-sale', [ProdukSaleController::class, 'index']);
 //Route::get('/kategori/produk',[KategoriController::class,'getProdukKategori']);
-Route::get('/produk', [ProdukController::class,'getProdukByKategori']);
+//Route::get('/produk', [ProdukController::class,'getProdukByKategori']);
 Route::get('/produk/gender', [ProdukController::class,'getProdukByGender']);
 Route::get('/newProduk',[ProdukController::class,'getNewProduk']);
-Route::post('/insert', [ProdukController::class, 'store'])->name('insert');
+Route::post('/insertKategori', [KategoriController::class, 'store'])->name('insertKategori');
+Route::post('/insertProduk', [ProdukController::class, 'store'])->name('insertProduk');
+
 
 

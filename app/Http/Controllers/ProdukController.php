@@ -55,7 +55,8 @@ class ProdukController extends Controller
             ],500);
         }
     }
-    public function getNewProduk(ProdukModel $produkModel){
+    public function getNewProduk(ProdukModel $produkModel): JsonResponse
+    {
         try {
             return response()->json([
                'massage' => 'success',
@@ -91,12 +92,11 @@ class ProdukController extends Controller
             'kategoriId' => 'required',
             'genderId' => 'required',
         ]);
-//        $imagePath = $request->file('imgPath')->store('produk');
         $image = $request->file('imgPath');
         $imgName = encrypt($image->getClientOriginalName() );
         $data = array_merge($validate, ['imgPath' => $imgName]);
 
-        $image->move(public_path('public/storage'), $imgName .'.'. $image->getClientOriginalExtension() );
+        $image->move(public_path('public/storage/produk'), $imgName .'.'. $image->getClientOriginalExtension() );
         $query = $produkModel->createProduk($data);
 
         if ($query) {

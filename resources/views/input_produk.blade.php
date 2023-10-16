@@ -7,7 +7,7 @@
 <body>
 <div class="container mt-5">
     <h2>Form Upload Gambar</h2>
-    <form action="{{ route('insert') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('insertProduk') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="name">Nama Produk</label>

@@ -18,15 +18,21 @@ class KategoriModel extends Model
     public function getKategori(){
         try {
             return DB::table('kategori')
-                ->select('nama','imgUrl')
+                ->select('nama','imgPath')
                 ->get();
         }catch (QueryException $e){
             return false;
         }
     }
 
-
-    public function createKategori(){
-
+    public function createKategori(array $input){
+        try {
+            return $this->create([
+                'nama' => $input['nama'],
+                'imgPath' => $input['imgPath'],
+            ]);
+        }catch (QueryException $e){
+            return collect();
+        }
     }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kategori',function (Blueprint $table){
             $table->id('idKategori');
             $table->string('nama')->unique();
-            $table->string('imgUrl');
+            $table->string('imgPath');
             $table->timestamps();
         });
     }
