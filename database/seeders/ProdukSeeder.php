@@ -17,7 +17,7 @@ class ProdukSeeder extends Seeder
             'deskripsi' => 'Nike Air Jordan adalah sebuah sepatu yang didesain untuk atlet basket',
             'harga' => '2500000',
             'stock' => '5',
-            'imgUrl' => '',
+            'imgPath' => '',
             'kategoriId' => '1',
             'genderId'  =>  '3',
         ]);
@@ -26,7 +26,7 @@ class ProdukSeeder extends Seeder
             'deskripsi' => 'Nike Hat Vintage adalah sebuah topi yang digunakan sebagai lifestyle',
             'harga' => '700000',
             'stock' => '2',
-            'imgUrl' => '',
+            'imgPath' => '',
             'kategoriId' => '3',
             'genderId'  =>  '2',
         ]);

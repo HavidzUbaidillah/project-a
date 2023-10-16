@@ -17,13 +17,12 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->double('harga');
             $table->integer('stock');
-            $table->string('imgUrl');
+            $table->string('imgPath');
             $table->foreignid('kategoriId')->constrained('kategori','idKategori');
             $table->foreignId('genderId')->constrained('gender','idGender');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

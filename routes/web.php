@@ -20,8 +20,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/produk',[ProdukController::class, 'index']);
-Route::get('/kategori',[KategoriController::class, 'index']);
+//Route::get('/produk',[ProdukController::class, 'index']);
+//Route::get('/kategori',[KategoriController::class, 'index']);
 Route::get('/banner',[BannerController::class,'index']);
 Route::get('/produk-sale', [ProdukSaleController::class, 'index']);
+//Route::get('/kategori/produk',[KategoriController::class,'getProdukKategori']);
+Route::get('/produk', [ProdukController::class,'getProdukByKategori']);
+Route::get('/produk/gender', [ProdukController::class,'getProdukByGender']);
+Route::get('/newProduk',[ProdukController::class,'getNewProduk']);
+Route::post('/insert', [ProdukController::class, 'store'])->name('insert');
+
 

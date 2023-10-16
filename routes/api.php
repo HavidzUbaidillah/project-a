@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('produk',ProdukController::class);
+//Route::apiResource('produk',ProdukController::class);
 Route::apiResource('kategori',KategoriController::class);
 Route::apiResource('banner',BannerController::class);
 Route::apiResource('produk-sale/banner', ProdukSaleController::class);
+//Route::apiResource('image' )
+//Route::get('produk?kategori={kategori}', [ProdukController::class,'getProdukByKategori']);
