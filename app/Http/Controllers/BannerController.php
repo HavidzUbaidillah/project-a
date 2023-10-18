@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BannerModel;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 class BannerController extends Controller
 {
     /**
@@ -37,9 +38,30 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, BannerModel $bannerModel)
     {
-        //
+        $validate = $request->validate([
+            'imgPath' => 'required|image'
+        ]);
+
+        $image = $request->file('imgPath');
+        $randomString = Str::random(15);
+        $imgNameRandom = substr($image->getClientOriginalName(), 0, 0) . $randomString;
+
+        $imgName = $imgNameRandom . '.webp';
+        $data = array_merge($validate, ['imgPath' => $imgName]);
+
+        $image->move(public_path('storage/banner/'), $imgName);
+
+        $img = Image::make(public_path('storage/banner/') . $imgName);
+        $img->encode('webp', 75)->save(public_path('storage/banner/') . $imgName);
+        $query = $bannerModel->createBanner($data);
+
+        if ($query) {
+            return response()->json(['message' => 'success']);
+        } else {
+            return response()->json(['message' => 'error']);
+        }
     }
 
     /**

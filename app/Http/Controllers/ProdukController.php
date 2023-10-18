@@ -6,6 +6,8 @@ use App\Models\ProdukModel;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class ProdukController extends Controller
 {
@@ -92,11 +94,18 @@ class ProdukController extends Controller
             'kategoriId' => 'required',
             'genderId' => 'required',
         ]);
+
         $image = $request->file('imgPath');
-        $imgName = encrypt($image->getClientOriginalName() );
+        $randomString = Str::random(15);
+        $imgNameRandom = substr($image->getClientOriginalName(), 0, 0) . $randomString;
+
+        $imgName = $imgNameRandom . '.webp';
         $data = array_merge($validate, ['imgPath' => $imgName]);
 
-        $image->move(public_path('public/storage/produk'), $imgName .'.'. $image->getClientOriginalExtension() );
+        $image->move(public_path('storage/banner/'), $imgName);
+
+        $img = Image::make(public_path('storage/banner/') . $imgName);
+        $img->encode('webp', 75)->save(public_path('storage/banner/') . $imgName);
         $query = $produkModel->createProduk($data);
 
         if ($query) {

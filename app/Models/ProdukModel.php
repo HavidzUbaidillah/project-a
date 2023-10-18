@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -19,27 +20,27 @@ class ProdukModel extends Model
     {
         try {
             return DB::table('produk')
-                ->select('nama','deskripsi','harga')
-                ->orderBy('nama','ASC')
+                ->select('nama','deskripsi','harga','imgPath')
+                ->orderBy('nama')
                 ->get();
         }catch (QueryException $e){
             return false;
         }
     }
-    public function produkByKategori(): bool|Collection
+    public function produkByKategori(Request $input): bool|Collection
     {
         try {
             return DB::table('kategori')
                 ->select('produk.nama','produk.deskripsi','produk.harga')
                 ->join('produk', 'kategoriId','=','kategori.idKategori')
-                ->where('kategori.idKategori','=','a')
+                ->where('kategori.nama','=',$input)
                 ->get();
         }catch (QueryException $e){
             return false;
         }
     }
 
-    public function produkByGender($input): bool|Collection
+    public function produkByGender(Request $input): bool|Collection
     {
         try {
             return DB::table('gender')
@@ -56,7 +57,8 @@ class ProdukModel extends Model
         try {
             return DB::table('produk')
                 ->select('nama','deskripsi','harga')
-                ->orderBy('idProduk','DESC')
+                ->orderBy('created_at','DESC')
+                ->take(5)
                 ->get();
         }catch (QueryException $e){
             return collect();

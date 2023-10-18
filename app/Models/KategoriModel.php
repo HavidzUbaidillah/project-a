@@ -18,7 +18,8 @@ class KategoriModel extends Model
     public function getKategori(){
         try {
             return DB::table('kategori')
-                ->select('nama','imgPath')
+                ->select('nama')
+                ->orderBy('nama','ASC')
                 ->get();
         }catch (QueryException $e){
             return false;

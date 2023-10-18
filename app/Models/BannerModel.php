@@ -17,10 +17,16 @@ class BannerModel extends Model
     public function getBanner(){
         try {
             return DB::table('banner')
-                ->select('imgUrl')
+                ->select('imgPath')
                 ->get();
         }catch (QueryException $e){
             return false;
         }
+    }
+
+    public function createBanner(array $input){
+        return $this->create([
+           'imgPath' => $input['imgPath']
+        ]);
     }
 }

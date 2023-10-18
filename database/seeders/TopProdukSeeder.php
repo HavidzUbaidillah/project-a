@@ -13,8 +13,6 @@ class TopProdukSeeder extends Seeder
      */
     public function run(): void
     {
-        TopProdukModel::create([
-            'produkId' => '1',
-        ]);
+
     }
 }

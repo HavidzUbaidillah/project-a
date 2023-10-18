@@ -11,33 +11,33 @@
         @csrf
         <div class="form-group">
             <label for="name">Nama Produk</label>
-            <input type="text" class="form-control" id="name" name="nama" required>
+            <input type="text" class="form-control" name="nama" required>
         </div>
 
         <div class="form-group">
             <label for="description">Deskripsi Produk</label>
-            <textarea class="form-control" id="description" name="deskripsi" rows="3"></textarea>
+            <textarea class="form-control" name="deskripsi" rows="3"></textarea>
         </div>
 
         <div class="form-group">
             <label for="price">Harga</label>
-            <input type="text" class="form-control" id="price" name="harga" required>
+            <input type="text" class="form-control" name="harga" required>
         </div>
 
         <div class="form-group">
             <label for="stock">Stok</label>
-            <input type="number" class="form-control" id="stock" name="stock" required>
+            <input type="number" class="form-control" name="stock" required>
         </div>
 
 
         <div class="form-group">
             <label for="stock">kategori</label>
-            <input type="number" class="form-control" id="stock" name="kategoriId" required>
+            <input type="number" class="form-control" name="kategoriId" required>
         </div>
 
         <div class="form-group">
             <label for="stock">gender</label>
-            <input type="number" class="form-control" id="stock" name="genderId" required>
+            <input type="number" class="form-control" name="genderId" required>
         </div>
 
         <div class="form-group">

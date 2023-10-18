@@ -12,9 +12,6 @@ class ProdukSaleSeeder extends Seeder
      */
     public function run(): void
     {
-        ProdukSaleModel::create([
-            'saleId' => '1',
-            'produkId' => '1',
-        ]);
+
     }
 }
