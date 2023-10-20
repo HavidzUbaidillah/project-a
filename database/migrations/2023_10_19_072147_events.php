@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topProduk', function (Blueprint $table){
-            $table->id('idTopProduk');
-            $table->foreignId('produkId')->constrained('produk','idProduk');
+        Schema::create('events', function (Blueprint $table){
+            $table->id('idEvent');
+            $table->string('name')->unique();
+            $table->integer('discount');
+            $table->string('imgPath');
+            $table->date('eventBegin');
+            $table->date('eventEnd');
+            $table->string('slug');
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topProduk');
+        //
     }
 };

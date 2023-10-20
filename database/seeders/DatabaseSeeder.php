@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\AdminModel;
-use App\Models\GenderModel;
-use App\Models\KategoriModel;
-use App\Models\ProdukModel;
+use App\Models\GendersModel;
+use App\Models\CategoriesModel;
+use App\Models\ProductsModel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,12 +24,13 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             AdminSeeder::class,
-            BannerSeeder::class,
-            GenderSeeder::class,
-            KategoriSeeder::class,
-            ProdukSeeder::class,
-            SaleSeeder::class,
-            ProdukSaleSeeder::class,
+            CategoriesSeeder::class,
+            EventProductsSeeder::class,
+            EventsSeeder::class,
+            GendersSeeder::class,
+            ProductsSeeder::class,
+            SeriesSeeder::class,
+            SubCategoriesSeeder::class,
         ]);
     }
 }

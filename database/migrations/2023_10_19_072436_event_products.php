@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('banner',function (Blueprint $table){
-            $table->id('idBanner');
-            $table->string('imgPath');
-            $table->timestamps();
+        Schema::create('event_products', function (Blueprint $table){
+            $table->id('idEventProduct');
+            $table->foreignId('productId')->constrained('products','idProduct');
+            $table->foreignId('eventId')->constrained('events','idEvent');
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('banner');
+        //
     }
 };

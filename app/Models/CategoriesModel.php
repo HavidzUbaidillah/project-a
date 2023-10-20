@@ -8,18 +8,18 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class KategoriModel extends Model
+class CategoriesModel extends Model
 {
     use HasFactory;
-    protected $table  = 'kategori';
-    protected $primaryKey  = 'idKategori';
-    protected $guarded = ['idKategori'];
+    protected $table  = 'categories';
+    protected $primaryKey  = 'idCategory';
+    protected $guarded = ['idCategory'];
 
     public function getKategori(){
         try {
-            return DB::table('kategori')
-                ->select('nama')
-                ->orderBy('nama','ASC')
+            return DB::table('categories')
+                ->select('name')
+                ->orderBy('name','ASC')
                 ->get();
         }catch (QueryException $e){
             return false;
@@ -29,7 +29,7 @@ class KategoriModel extends Model
     public function createKategori(array $input){
         try {
             return $this->create([
-                'nama' => $input['nama'],
+                'name' => $input['name'],
                 'imgPath' => $input['imgPath'],
             ]);
         }catch (QueryException $e){

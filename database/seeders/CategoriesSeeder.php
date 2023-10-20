@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\TopProdukModel;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\CategoriesModel;
 use Illuminate\Database\Seeder;
 
-class TopProdukSeeder extends Seeder
+class CategoriesSeeder extends Seeder
 {
     /**
      * Run the database seeds.

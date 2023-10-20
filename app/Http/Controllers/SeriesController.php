@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SaleModel;
+use App\Models\SeriesModel;
 use Illuminate\Http\Request;
 
-class SaleController extends Controller
+class SeriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -34,7 +34,7 @@ class SaleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SaleModel $saleModel)
+    public function show(SeriesModel $seriesModel)
     {
         //
     }
@@ -42,7 +42,7 @@ class SaleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SaleModel $saleModel)
+    public function edit(SeriesModel $seriesModel)
     {
         //
     }
@@ -50,7 +50,7 @@ class SaleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SaleModel $saleModel)
+    public function update(Request $request, SeriesModel $seriesModel)
     {
         //
     }
@@ -58,7 +58,7 @@ class SaleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SaleModel $saleModel)
+    public function destroy(SeriesModel $seriesModel)
     {
         //
     }

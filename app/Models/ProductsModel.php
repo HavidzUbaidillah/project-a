@@ -9,44 +9,36 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class ProdukModel extends Model
+class ProductsModel extends Model
 {
     use HasFactory;
-    protected $table  = 'produk';
-    protected $primaryKey  = 'idProduk';
-    protected $guarded = ['idProduk'];
+    protected $table  = 'products';
+    protected $primaryKey  = 'idProduct';
+    protected $guarded = ['idProduct'];
 
     public function getDataProduk(): bool|Collection
     {
-        try {
-            return DB::table('produk')
-                ->select('nama','deskripsi','harga','imgPath')
-                ->orderBy('nama')
-                ->get();
-        }catch (QueryException $e){
-            return false;
-        }
+        return DB::table('products')
+            ->select('name','description','price','imgPath')
+            ->orderBy('name')
+            ->get();
     }
     public function produkByKategori(Request $input): bool|Collection
     {
-        try {
-            return DB::table('kategori')
-                ->select('produk.nama','produk.deskripsi','produk.harga')
-                ->join('produk', 'kategoriId','=','kategori.idKategori')
-                ->where('kategori.nama','=',$input)
-                ->get();
-        }catch (QueryException $e){
-            return false;
-        }
+        return DB::table('categories')
+            ->select('products.name','products.description','products.price')
+            ->join('products', 'categoryId','=','categories.idCategory')
+            ->where('categories.name','=',$input)
+            ->get();
     }
 
     public function produkByGender(Request $input): bool|Collection
     {
         try {
-            return DB::table('gender')
-                ->select('produk.nama','produk.deskripsi','produk.harga')
-                ->join('produk', 'genderId','=','gender.idGender')
-                ->where('gender.gender','=',$input)
+            return DB::table('genders')
+                ->select('products.name','products.description','products.price')
+                ->join('products', 'genderId','=','genders.idGender')
+                ->where('genders.gender','=',$input)
                 ->get();
         }catch (QueryException $e){
             return false;
@@ -55,8 +47,8 @@ class ProdukModel extends Model
 
     public function newProduk(){
         try {
-            return DB::table('produk')
-                ->select('nama','deskripsi','harga')
+            return DB::table('products')
+                ->select('name','description','price')
                 ->orderBy('created_at','DESC')
                 ->take(5)
                 ->get();
@@ -68,9 +60,9 @@ class ProdukModel extends Model
     public function createProduk(array $input){
         try {
             return $this->create([
-                'nama' => $input['nama'],
-                'deskripsi' => $input['deskripsi'],
-                'harga' => $input['harga'],
+                'name' => $input['name'],
+                'descriprion' => $input['descriprion'],
+                'price' => $input['price'],
                 'stock' => $input['stock'],
                 'imgPath' => $input['imgPath'],
                 'kategoriId' => $input['kategoriId'],

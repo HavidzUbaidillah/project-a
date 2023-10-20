@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProdukModel;
+use App\Models\ProductsModel;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
-class ProdukController extends Controller
+class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(ProdukModel $produkModel): JsonResponse
+    public function index(ProductsModel $produkModel): JsonResponse
     {
         try {
             return response()->json([
@@ -28,7 +28,7 @@ class ProdukController extends Controller
             ],500);
         }
     }
-    public function getProdukByKategori(ProdukModel $produkModel): JsonResponse
+    public function getProdukByKategori(ProductsModel $produkModel): JsonResponse
     {
         request()->input('kategori') != null  && $data = request('input');
         try {
@@ -43,7 +43,7 @@ class ProdukController extends Controller
             ],500);
         }
     }
-    public function getProdukByGender(ProdukModel $produkModel): JsonResponse
+    public function getProdukByGender(ProductsModel $produkModel): JsonResponse
     {
         try {
             return response()->json([
@@ -57,7 +57,7 @@ class ProdukController extends Controller
             ],500);
         }
     }
-    public function getNewProduk(ProdukModel $produkModel): JsonResponse
+    public function getNewProduk(ProductsModel $produkModel): JsonResponse
     {
         try {
             return response()->json([
@@ -83,7 +83,7 @@ class ProdukController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, ProdukModel $produkModel)
+    public function store(Request $request, ProductsModel $produkModel)
     {
         $validate = $request->validate([
             'nama' => 'required',
@@ -118,7 +118,7 @@ class ProdukController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ProdukModel $produkModel)
+    public function show(ProductsModel $produkModel)
     {
         //
     }
@@ -126,7 +126,7 @@ class ProdukController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProdukModel $produkModel)
+    public function edit(ProductsModel $produkModel)
     {
         //
     }
@@ -134,7 +134,7 @@ class ProdukController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProdukModel $produkModel)
+    public function update(Request $request, ProductsModel $produkModel)
     {
         //
     }
@@ -142,7 +142,7 @@ class ProdukController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProdukModel $produkModel)
+    public function destroy(ProductsModel $produkModel)
     {
         //
     }

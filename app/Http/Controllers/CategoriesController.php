@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KategoriModel;
+use App\Models\CategoriesModel;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
-class KategoriController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(KategoriModel $kategoriModel): JsonResponse
+    public function index(CategoriesModel $kategoriModel): JsonResponse
     {
         try {
             return response()->json([
@@ -41,7 +41,7 @@ class KategoriController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, KategoriModel $kategoriModel)
+    public function store(Request $request, CategoriesModel $kategoriModel)
     {
         try {
             $validate = $request->validate([
@@ -69,7 +69,7 @@ class KategoriController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(KategoriModel $kategoriModel)
+    public function show(CategoriesModel $kategoriModel)
     {
         //
     }
@@ -77,7 +77,7 @@ class KategoriController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(KategoriModel $kategoriModel)
+    public function edit(CategoriesModel $kategoriModel)
     {
         //
     }
@@ -85,7 +85,7 @@ class KategoriController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, KategoriModel $kategoriModel)
+    public function update(Request $request, CategoriesModel $kategoriModel)
     {
         //
     }
@@ -93,7 +93,7 @@ class KategoriController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(KategoriModel $kategoriModel)
+    public function destroy(CategoriesModel $kategoriModel)
     {
         //
     }

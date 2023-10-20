@@ -2,28 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GendersModel;
-use Illuminate\Database\QueryException;
+use App\Models\EventsModel;
 use Illuminate\Http\Request;
 
-class GenderController extends Controller
+class EventsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(GendersModel $genderModel)
+    public function index()
     {
-        try {
-            return response()->json([
-               'message' => 'success',
-               'data' => $genderModel->getGender()
-            ]);
-        }catch (QueryException $e){
-            return response()->json([
-                'message' => 'error',
-                'data' => []
-            ],500);
-        }
+        //
     }
 
     /**
@@ -45,7 +34,7 @@ class GenderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(GendersModel $genderModel)
+    public function show(EventsModel $events)
     {
         //
     }
@@ -53,7 +42,7 @@ class GenderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(GendersModel $genderModel)
+    public function edit(EventsModel $events)
     {
         //
     }
@@ -61,7 +50,7 @@ class GenderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, GendersModel $genderModel)
+    public function update(Request $request, EventsModel $events)
     {
         //
     }
@@ -69,7 +58,7 @@ class GenderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(GendersModel $genderModel)
+    public function destroy(EventsModel $events)
     {
         //
     }

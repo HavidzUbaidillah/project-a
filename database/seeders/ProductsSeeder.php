@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\BannerModel;
+use App\Models\ProductsModel;
 use Illuminate\Database\Seeder;
 
-class BannerSeeder extends Seeder
+class ProductsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

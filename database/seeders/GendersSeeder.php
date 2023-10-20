@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\ProdukSaleModel;
+use App\Models\GendersModel;
 use Illuminate\Database\Seeder;
 
-class ProdukSaleSeeder extends Seeder
+class GendersSeeder extends Seeder
 {
     /**
      * Run the database seeds.

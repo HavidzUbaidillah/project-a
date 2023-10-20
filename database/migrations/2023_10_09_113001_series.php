@@ -11,19 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sale', function (Blueprint $table){
-            $table->id('idSale');
-            $table->string('event');
-            $table->double('diskon');
-            $table->timestamps();
+        Schema::create('series', function (Blueprint $table){
+            $table->id('idSeries');
+            $table->string('name')->unique();
+            $table->string('imgPath');
         });
-    }
 
+    }
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('sale');
+        //
     }
 };

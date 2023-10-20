@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
-class GenderModel extends Model
+class GendersModel extends Model
 {
     use HasFactory;
-    protected $table  = 'gender';
+    protected $table  = 'genders';
     protected $primaryKey  = 'idGender';
     protected $guarded = ['idGender'];
 
     public function getGender(){
         try {
-            return DB::table('gender')
+            return DB::table('genders')
                 ->select('gender')
                 ->get();
         }catch (QueryException $e){

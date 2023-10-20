@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategori',function (Blueprint $table){
-            $table->id('idKategori');
-            $table->string('nama')->unique();
+        Schema::create('genders', function (Blueprint $table){
+            $table->id('idGender');
+            $table->string('gender')->unique();
             $table->string('imgPath');
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori');
+        Schema::dropIfExists('gender');
     }
 };
