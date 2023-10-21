@@ -26,9 +26,13 @@ class SeriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, SeriesModel $seriesModel)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'imgPath' => 'required|image',
+            'description' => 'required'
+        ]);
     }
 
     /**

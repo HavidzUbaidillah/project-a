@@ -26,9 +26,17 @@ class EventsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, EventsModel $eventsModel): void
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'discount' => 'required',
+            'imgPath' => 'required',
+            'eventBegin' => 'required',
+            'eventEnd' => 'required',
+            'slug' => 'required',
+        ]);
+        $eventsModel->createEvents($data);
     }
 
     /**

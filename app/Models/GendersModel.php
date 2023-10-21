@@ -20,7 +20,7 @@ class GendersModel extends Model
                 ->select('gender')
                 ->get();
         }catch (QueryException $e){
-            return false;
+            return collect();
         }
     }
 }

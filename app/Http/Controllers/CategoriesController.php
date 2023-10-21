@@ -14,12 +14,12 @@ class CategoriesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(CategoriesModel $kategoriModel): JsonResponse
+    public function index(CategoriesModel $categoriesModel): JsonResponse
     {
         try {
             return response()->json([
                 'message' => 'success',
-                'data' => $kategoriModel->getKategori(),
+                'categories,' => $categoriesModel->AllDataCategories(),
             ]);
         }catch (QueryException $e){
             return response()->json([
@@ -41,11 +41,11 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, CategoriesModel $kategoriModel)
+    public function store(Request $request, CategoriesModel $categoriesModel): JsonResponse
     {
         try {
             $validate = $request->validate([
-                'nama' => 'required',
+                'name' => 'required',
                 'imgPath' => 'required|image'
             ]);
             $image = $request->file('imgPath');
@@ -59,10 +59,10 @@ class CategoriesController extends Controller
 
             $img = Image::make(public_path('storage/banner/') . $imgName);
             $img->encode('webp', 75)->save(public_path('storage/banner/') . $imgName);
-            $kategoriModel->createKategori($data);
+            $categoriesModel->createNewCategories($data);
             return response()->json(['message' => 'success']);
         }catch (QueryException $e){
-            return response()->json(['message' => 'error']);
+            return response()->json(['message' => 'error'],500);
         }
     }
 
@@ -77,7 +77,7 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CategoriesModel $kategoriModel)
+    public function edit(CategoriesModel $categoriesModel)
     {
         //
     }
@@ -85,7 +85,7 @@ class CategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CategoriesModel $kategoriModel)
+    public function update(Request $request, CategoriesModel $categoriesModel)
     {
         //
     }
@@ -93,7 +93,7 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CategoriesModel $kategoriModel)
+    public function destroy(CategoriesModel $categoriesModel)
     {
         //
     }

@@ -15,18 +15,19 @@ class CategoriesModel extends Model
     protected $primaryKey  = 'idCategory';
     protected $guarded = ['idCategory'];
 
-    public function getKategori(){
+    public function AllDataCategories(): Collection
+    {
         try {
             return DB::table('categories')
                 ->select('name')
                 ->orderBy('name','ASC')
                 ->get();
         }catch (QueryException $e){
-            return false;
+            return collect();
         }
     }
 
-    public function createKategori(array $input){
+    public function createNewCategories(array $input){
         try {
             return $this->create([
                 'name' => $input['name'],

@@ -16,20 +16,28 @@ class ProductsModel extends Model
     protected $primaryKey  = 'idProduct';
     protected $guarded = ['idProduct'];
 
-    public function getDataProduk(): bool|Collection
+    public function AllDataProduk(): bool|Collection
     {
-        return DB::table('products')
-            ->select('name','description','price','imgPath')
-            ->orderBy('name')
-            ->get();
+        try {
+            return DB::table('products')
+                ->select('name','description','price','imgPath')
+                ->orderBy('name')
+                ->get();
+        }catch (QueryException $e){
+            return collect();
+        }
     }
     public function produkByKategori(Request $input): bool|Collection
     {
-        return DB::table('categories')
-            ->select('products.name','products.description','products.price')
-            ->join('products', 'categoryId','=','categories.idCategory')
-            ->where('categories.name','=',$input)
-            ->get();
+        try {
+            return DB::table('categories')
+                ->select('products.name','products.description','products.price')
+                ->join('products', 'categoryId','=','categories.idCategory')
+                ->where('categories.name','=',$input)
+                ->get();
+        }catch (QueryException $e){
+            return collect();
+        }
     }
 
     public function produkByGender(Request $input): bool|Collection
@@ -61,12 +69,23 @@ class ProductsModel extends Model
         try {
             return $this->create([
                 'name' => $input['name'],
-                'descriprion' => $input['descriprion'],
+                'description' => $input['description'],
+                'specs' => json_encode([
+                    'color' => $input['color'],
+                    'size' => $input['size'],
+                    'material' => $input['material']
+                ]),
                 'price' => $input['price'],
+                'imgPath' => [
+                    '1' => $input['1'],
+                    '2' => $input['2'],
+                    '3' => $input['3'],
+                    '4' => $input['4']
+                ],
                 'stock' => $input['stock'],
-                'imgPath' => $input['imgPath'],
-                'kategoriId' => $input['kategoriId'],
+                'seriesId' => $input['seriesId'],
                 'genderId' => $input['genderId'],
+                'subCategoryId' => $input['subCategoryId'],
             ]);
         }catch (QueryException $e){
             return collect();
