@@ -19,7 +19,7 @@ class CategoriesController extends Controller
         try {
             return response()->json([
                 'message' => 'success',
-                'categories,' => $categoriesModel->AllDataCategories(),
+                'events,' => $categoriesModel->AllDataCategories(),
             ]);
         }catch (QueryException $e){
             return response()->json([
@@ -44,21 +44,20 @@ class CategoriesController extends Controller
     public function store(Request $request, CategoriesModel $categoriesModel): JsonResponse
     {
         try {
-            $validate = $request->validate([
+            $data = $request->validate([
                 'name' => 'required',
-                'imgPath' => 'required|image'
             ]);
-            $image = $request->file('imgPath');
-            $randomString = Str::random(15);
-            $imgNameRandom = substr($image->getClientOriginalName(), 0, 0) . $randomString;
-
-            $imgName = $imgNameRandom . '.webp';
-            $data = array_merge($validate, ['imgPath' => $imgName]);
-
-            $image->move(public_path('storage/banner/'), $imgName);
-
-            $img = Image::make(public_path('storage/banner/') . $imgName);
-            $img->encode('webp', 75)->save(public_path('storage/banner/') . $imgName);
+//            $image = $request->file('imgPath');
+//            $randomString = Str::random(15);
+//            $imgNameRandom = substr($image->getClientOriginalName(), 0, 0) . $randomString;
+//
+//            $imgName = $imgNameRandom . '.webp';
+//            $data = array_merge($validate, ['imgPath' => $imgName]);
+//
+//            $image->move(public_path('storage/genders/'), $imgName);
+//
+//            $img = Image::make(public_path('storage/genders/') . $imgName);
+//            $img->encode('webp', 75)->save(public_path('storage/genders/') . $imgName);
             $categoriesModel->createNewCategories($data);
             return response()->json(['message' => 'success']);
         }catch (QueryException $e){

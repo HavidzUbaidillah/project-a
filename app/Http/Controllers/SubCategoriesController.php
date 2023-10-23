@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubCategoriesModel;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SubCategoriesController extends Controller
@@ -26,9 +28,20 @@ class SubCategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, SubCategoriesModel $subCategoriesModel): JsonResponse
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'categoryId' => 'required',
+            'genderId' => 'required'
+        ]);
+        $dataSubCategory = $subCategoriesModel->createNewSubCategories($data);
+        if ($dataSubCategory){
+            return response()->json(['message' => 'success']);
+        }else{
+            return response()->json(['message' => 'error']);
+        }
+
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\EventsModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class EventsController extends Controller
 {
@@ -28,14 +30,25 @@ class EventsController extends Controller
      */
     public function store(Request $request, EventsModel $eventsModel): void
     {
-        $data = $request->validate([
+        $validate = $request->validate([
             'name' => 'required',
             'discount' => 'required',
-            'imgPath' => 'required',
+            'imgPath' => 'required|image',
             'eventBegin' => 'required',
             'eventEnd' => 'required',
             'slug' => 'required',
         ]);
+        $image = $request->file('imgPath');
+        $randomString = Str::random(15);
+        $imgNameRandom = substr($image->getClientOriginalName(), 0, 0) . $randomString;
+
+        $imgName = $imgNameRandom . '.webp';
+        $data = array_merge($validate, ['imgPath' => $imgName]);
+
+        $image->move(public_path('storage/events/'), $imgName);
+
+        $img = Image::make(public_path('storage/events/') . $imgName);
+        $img->encode('webp', 75)->save(public_path('storage/events/') . $imgName);
         $eventsModel->createEvents($data);
     }
 

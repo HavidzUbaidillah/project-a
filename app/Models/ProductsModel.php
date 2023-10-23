@@ -30,10 +30,10 @@ class ProductsModel extends Model
     public function produkByKategori(Request $input): bool|Collection
     {
         try {
-            return DB::table('categories')
+            return DB::table('events')
                 ->select('products.name','products.description','products.price')
-                ->join('products', 'categoryId','=','categories.idCategory')
-                ->where('categories.name','=',$input)
+                ->join('products', 'categoryId','=','events.idCategory')
+                ->where('events.name','=',$input)
                 ->get();
         }catch (QueryException $e){
             return collect();

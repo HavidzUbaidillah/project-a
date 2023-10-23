@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('categories',function (Blueprint $table){
             $table->id('idCategory');
             $table->string('name')->unique();
-            $table->string('imgPath');
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori');
+        Schema::dropIfExists('categories');
     }
 };

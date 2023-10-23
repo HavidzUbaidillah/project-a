@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('idSeries');
             $table->string('name')->unique();
             $table->string('imgPath');
+            $table->timestamps();
         });
 
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('series');
     }
 };

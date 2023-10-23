@@ -1,11 +1,7 @@
 <?php
 
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\GenderKategoriController;
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\ProdukSaleController;
-use App\Http\Controllers\TopProdukController;
+use App\Http\Controllers\GenderController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,13 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('produk',ProductsController::class,['index']);
-Route::apiResource('create-produk',ProductsController::class,['store']);
-Route::apiResource('kategori',CategoriesController::class,['index']);
-Route::apiResource('create-kategori',CategoriesController::class,['store']);
-Route::apiResource('banner',BannerController::class);
-Route::apiResource('top-produk', TopProdukController::class);
-Route::apiResource('produk-sale/banner', ProdukSaleController::class);
-//Route::apiResource('gender-kategori', 'GenderKategoriController@getAllKategoriByGender');
-//Route::apiResource('image' )
-//Route::get('produk?kategori={kategori}', [ProductsController::class,'getProdukByKategori']);
+Route::apiResource('genders', GenderController::class);
+Route::apiResource('home', HomeController::class);
+

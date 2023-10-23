@@ -12,6 +12,9 @@ class CategoriesSeeder extends Seeder
      */
     public function run(): void
     {
-
+        CategoriesModel::create(['name' => 'SHOES']);
+        CategoriesModel::create(['name' => 'CLOTHING']);
+        CategoriesModel::create(['name' => 'ACCESSORIES']);
+        CategoriesModel::create(['name' => 'SPORTS']);
     }
 }

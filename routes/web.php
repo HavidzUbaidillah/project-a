@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\GenderKategoriController;
 use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\ProdukSaleController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\GenderController;
+use App\Http\Controllers\SubCategoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,28 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/produk', function () {
-    return view('input_produk');
+Route::get('/input-gender', function () {
+    return view('gender');
 });
-Route::get('/kategori', function () {
+Route::get('/gender', function () {
     return view('input_kategori');
 });
-Route::get('/banner', function () {
-    return view('input_banner');
+Route::get('/event', function () {
+    return view('event');
 });
-
-//Route::get('/produk',[ProductsController::class, 'index']);
-//Route::get('/kategori',[CategoriesController::class, 'index']);
-//Route::get('/banner',[BannerController::class,'index']);
-Route::get('/produk-sale', [ProdukSaleController::class, 'index']);
-//Route::get('/kategori/produk',[CategoriesController::class,'getProdukKategori']);
-//Route::get('/produk', [ProductsController::class,'getProdukByKategori']);
-Route::get('/produk/gender', [ProductsController::class,'getProdukByGender']);
-Route::get('/newProduk',[ProductsController::class,'getNewProduk']);
-Route::post('/insertKategori', [CategoriesController::class, 'store'])->name('insertKategori');
-Route::post('/insertProduk', [ProductsController::class, 'store'])->name('insertProduk');
-Route::post('/insertBanner',[BannerController::class,'store'])->name('insertBanner');
-Route::get('/gender-kategori',[GenderKategoriController::class,'getAllKategoriByGender']);
-
-
+Route::post('kategori',[CategoriesController::class,'store'])->name('kategori');
+Route::post('/subCat',[SubCategoriesController::class,'store'])->name('subcat');
+Route::post('event', [EventsController::class,'store'])->name('event');
+Route::post('gender',[GenderController::class,'store'])->name('gender');
 

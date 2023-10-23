@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 
 class GendersModel extends Model
 {
@@ -22,5 +23,12 @@ class GendersModel extends Model
         }catch (QueryException $e){
             return collect();
         }
+    }
+
+    public function createGender($input){
+        return $this->create([
+          'gender' => $input['gender'],
+          'imgPath' => $input['imgPath'],
+        ]);
     }
 }

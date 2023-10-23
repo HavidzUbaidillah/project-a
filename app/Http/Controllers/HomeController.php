@@ -19,9 +19,15 @@ class HomeController extends Controller
         try {
             return response()->json([
                 'message' => 'success',
-                'genders' => $gendersModel->getGender(),
-                'categories' => $categoriesModel->AllDataCategories(),
-                'subCategories' => $subCategoriesModel->AllDataSubCategories(),
+                'data' => [
+                    'categories' => $categoriesModel->AllDataCategories(),
+                    'men' => [
+                        'subCategories' => $subCategoriesModel->AllDataSubCategories(),
+                    ],
+                    'women' => [
+                        'subCategories' => $subCategoriesModel->AllDataSubCategories()
+                    ]
+                ],
             ]);
         }catch (QueryException $e){
             return response()->json(['message'=>'error'],500);

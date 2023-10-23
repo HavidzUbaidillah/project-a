@@ -30,7 +30,7 @@ class ProductsController extends Controller
     }
     public function getProdukByKategori(ProductsModel $produkModel): JsonResponse
     {
-        request()->input('kategori') != null  && $data = request('input');
+        request()->input('events') != null  && $data = request('input');
         try {
             return response()->json([
                 'message' => 'success',
@@ -102,10 +102,10 @@ class ProductsController extends Controller
         $imgName = $imgNameRandom . '.webp';
         $data = array_merge($validate, ['imgPath' => $imgName]);
 
-        $image->move(public_path('storage/banner/'), $imgName);
+        $image->move(public_path('storage/genders/'), $imgName);
 
-        $img = Image::make(public_path('storage/banner/') . $imgName);
-        $img->encode('webp', 75)->save(public_path('storage/banner/') . $imgName);
+        $img = Image::make(public_path('storage/genders/') . $imgName);
+        $img->encode('webp', 75)->save(public_path('storage/genders/') . $imgName);
         $query = $produkModel->createProduk($data);
 
         if ($query) {

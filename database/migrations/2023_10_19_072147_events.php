@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('eventBegin');
             $table->date('eventEnd');
             $table->string('slug');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('events');
     }
 };

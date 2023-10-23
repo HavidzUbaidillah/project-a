@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('idEventProduct');
             $table->foreignId('productId')->constrained('products','idProduct');
             $table->foreignId('eventId')->constrained('events','idEvent');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('event_products');
     }
 };

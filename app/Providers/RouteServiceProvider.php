@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
                 'prefix' => 'api',
             ], function ($router) {
                 //Add you routes here, for example:
-//                Route::get('/banner','BannerController');
+//                Route::get('/genders','BannerController');
             });
         });
     }

@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Input Gender</title>
+    <title>Sub Categories</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h2>Insert Gender</h2>
-    <form action="{{ route('gender') }}" method="post" enctype="multipart/form-data">
+    <h2>Insert SubCategories</h2>
+    <form action="{{ route('subcat') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="name">Gender</label>
-            <input type="text" class="form-control" id="name" name="nama" required>
+            <label for="name">Nama</label>
+            <input type="text" class="form-control" id="name" name="name" required>
         </div>
         <div class="form-group">
-            <label for="file">Pilih Gambar</label>
-            <input type="file" class="form-control-file" id="file" name="imgPath">
+            <label for="stock">Categories</label>
+            <input type="number" class="form-control" name="categoryId" required>
+        </div>
+        <div class="form-group">
+            <label for="stock">Gender</label>
+            <input type="number" class="form-control" name="genderId" required>
         </div>
         <button type="submit" class="btn btn-primary">Unggah</button>
     </form>

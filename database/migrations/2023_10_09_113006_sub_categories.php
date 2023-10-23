@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('categoryId')->constrained('categories','idCategory');
             $table->foreignId('genderId')->constrained('genders','idGender');
+            $table->timestamps();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('sub_categories');
     }
 };

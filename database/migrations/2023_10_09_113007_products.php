@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->json('specs');
             $table->double('price');
-            $table->text('imgPath');
+            $table->json('imgPath');
             $table->integer('stock');
             $table->foreignid('seriesId')->constrained('series','idSeries');
             $table->foreignId('genderId')->constrained('genders','idGender');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produk');
+        Schema::dropIfExists('products');
     }
 };
