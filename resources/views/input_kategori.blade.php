@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Input Gender</title>
+    <title>Series</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h2>Insert Gender</h2>
-    <form action="{{ route('gender') }}" method="post" enctype="multipart/form-data">
+    <h2>Series</h2>
+    <form action="{{ route('series') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="name">Gender</label>
-            <input type="text" class="form-control" id="name" name="nama" required>
+            <label for="name">Nama</label>
+            <input type="text" class="form-control" id="name" name="name" required>
         </div>
         <div class="form-group">
             <label for="file">Pilih Gambar</label>

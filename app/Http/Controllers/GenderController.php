@@ -42,7 +42,6 @@ class GenderController extends Controller
      */
     public function store(Request $request, GendersModel $gendersModel): JsonResponse
     {
-        try {
             $validate = $request->validate([
                 'gender' => 'required',
                 'imgPath' => 'required|image'
@@ -53,16 +52,16 @@ class GenderController extends Controller
 
             $imgName = $imgNameRandom . '.webp';
             $data = array_merge($validate, ['imgPath' => $imgName]);
-            $image->move(public_path('storage/genders/'), $imgName);
+            $image->move(public_path('assets/'), $imgName);
 
-            $img = Image::make(public_path('storage/genders/') . $imgName);
-            $img->encode('webp', 75)->save(public_path('storage/genders/') . $imgName);
-            $gendersModel->createGender($data);
-            return response()->json(['message' => 'success']);
-        }catch (QueryException $e){
-            return response()->json(['message' => 'error']);
-        }
-
+            $img = Image::make(public_path('assets/') . $imgName);
+            $img->encode('webp', 75)->save(public_path('assets/') . $imgName);
+            $dataGender = $gendersModel->creatNewGender($data);
+            if ($dataGender){
+                return response()->json(['message' => 'success']);
+            }else{
+                return response()->json(['message' => 'error']);
+            }
     }
 
     /**

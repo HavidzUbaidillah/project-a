@@ -21,9 +21,9 @@ class EventsModel extends Model
             return collect();
         }
     }
-    public function createEvents(array $input){
+    public function createEvents(array $input):bool{
         try {
-            return $this->create([
+            $this->create([
                 'name' => $input['name'],
                 'discount' => $input['discount'],
                 'imgPath' => $input['imgPath'],
@@ -31,8 +31,9 @@ class EventsModel extends Model
                 'eventEnd' => $input['eventEnd'],
                 'slug' => $input['slug'],
             ]);
+            return true;
         }catch (QueryException $e){
-            return collect();
+            return false;
         }
     }
 }

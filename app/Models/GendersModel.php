@@ -14,21 +14,27 @@ class GendersModel extends Model
     protected $table  = 'genders';
     protected $primaryKey  = 'idGender';
     protected $guarded = ['idGender'];
+    protected $fillable = ['gender','imgPath'];
 
-    public function getGender(){
+    public function AllDataGender(){
         try {
             return DB::table('genders')
-                ->select('gender')
+                ->select('gender','imgPath')
                 ->get();
         }catch (QueryException $e){
             return collect();
         }
     }
 
-    public function createGender($input){
-        return $this->create([
-          'gender' => $input['gender'],
-          'imgPath' => $input['imgPath'],
-        ]);
+    public function creatNewGender(array $input):bool{
+        try {
+            $this->create([
+                'gender' => $input['gender'],
+                'imgPath' => $input['imgPath'],
+            ]);
+            return true;
+        }catch (QueryException $e){
+            return false;
+        }
     }
 }

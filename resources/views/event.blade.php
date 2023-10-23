@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sub Categories</title>
+    <title>Events</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h2>Insert SubCategories</h2>
+    <h2>Events</h2>
     <form action="{{ route('event') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">

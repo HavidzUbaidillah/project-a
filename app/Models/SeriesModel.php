@@ -9,27 +9,31 @@ use Illuminate\Support\Facades\DB;
 
 class SeriesModel extends Model
 {
-    use HasFactory;
+    protected $table  = 'series';
+    protected $primaryKey  = 'idSeries';
+    protected $guarded = ['idSeries'];
+    protected $fillable = ['name','description','imgPath'];
 
     public function ALlDataSeries(){
         try {
             return DB::table('series')
-                ->select('name','imgPath','description')
+                ->select('name','imgPath')
                 ->get();
         }catch (QueryException $e){
             return collect();
         }
     }
 
-    public function createNewSeries(array $input){
+    public function createNewSeries(array $input): bool{
         try {
-            return $this->create([
+            $this->create([
                 'name' => $input['name'],
                 'imgPath' => $input['imgPath'],
-                'description' => $input['description']
             ]);
+            return true;
         }catch (QueryException $e){
-            return collect();
+            dd($e->getMessage());
+            return false;
         }
     }
 

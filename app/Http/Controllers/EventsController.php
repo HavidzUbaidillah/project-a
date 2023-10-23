@@ -45,10 +45,10 @@ class EventsController extends Controller
         $imgName = $imgNameRandom . '.webp';
         $data = array_merge($validate, ['imgPath' => $imgName]);
 
-        $image->move(public_path('storage/events/'), $imgName);
+        $image->move(public_path('assets/'), $imgName);
 
-        $img = Image::make(public_path('storage/events/') . $imgName);
-        $img->encode('webp', 75)->save(public_path('storage/events/') . $imgName);
+        $img = Image::make(public_path('assets/') . $imgName);
+        $img->encode('webp', 75)->save(public_path('assets/') . $imgName);
         $eventsModel->createEvents($data);
     }
 

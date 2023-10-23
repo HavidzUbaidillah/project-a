@@ -47,17 +47,6 @@ class CategoriesController extends Controller
             $data = $request->validate([
                 'name' => 'required',
             ]);
-//            $image = $request->file('imgPath');
-//            $randomString = Str::random(15);
-//            $imgNameRandom = substr($image->getClientOriginalName(), 0, 0) . $randomString;
-//
-//            $imgName = $imgNameRandom . '.webp';
-//            $data = array_merge($validate, ['imgPath' => $imgName]);
-//
-//            $image->move(public_path('storage/genders/'), $imgName);
-//
-//            $img = Image::make(public_path('storage/genders/') . $imgName);
-//            $img->encode('webp', 75)->save(public_path('storage/genders/') . $imgName);
             $categoriesModel->createNewCategories($data);
             return response()->json(['message' => 'success']);
         }catch (QueryException $e){

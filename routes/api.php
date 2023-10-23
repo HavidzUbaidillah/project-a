@@ -18,4 +18,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('genders', GenderController::class);
 Route::apiResource('home', HomeController::class);
+Route::get('/assets',[HomeController::class,'assetsDownload']);
 
