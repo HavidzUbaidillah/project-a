@@ -2,22 +2,20 @@
 
 namespace App\Models;
 
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\ResponsiveImages\Exceptions\InvalidTinyJpg;
 
 class EventProductsModel extends Model
 {
-    use HasFactory;
+    protected $table = 'event_products';
+    protected $primaryKey = 'idEventProduct';
+    protected $guarded = ['idEventProduct'];
 
     public function getAllEventProducts(Request $input){
-        try {
-
-        }catch (QueryException $e){
-
-        }
         return DB::table('products')
             ->select('name','description','price','imgPath')
             ->join('eventProducts','productId','=','products.idProduct')

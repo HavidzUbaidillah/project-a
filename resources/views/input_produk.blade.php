@@ -7,44 +7,51 @@
 <body>
 <div class="container mt-5">
     <h2>Form Upload Gambar</h2>
-    <form action="{{ route('insertProduk') }}" method="post" enctype="multipart/form-data">
+    <form action="{{route('product')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="name">Nama Produk</label>
-            <input type="text" class="form-control" name="nama" required>
+            <input type="text" name="name" placeholder="Nama Produk">
         </div>
-
         <div class="form-group">
-            <label for="description">Deskripsi Produk</label>
-            <textarea class="form-control" name="deskripsi" rows="3"></textarea>
+            <input type="text" name="description" placeholder="Deskripsi">
         </div>
-
         <div class="form-group">
-            <label for="price">Harga</label>
-            <input type="text" class="form-control" name="harga" required>
+            <input type="text" name="size" placeholder="Ukuran">
         </div>
-
         <div class="form-group">
-            <label for="stock">Stok</label>
-            <input type="number" class="form-control" name="stock" required>
+            <input type="text" name="material" placeholder="Material">
         </div>
-
-
         <div class="form-group">
-            <label for="stock">kategori</label>
-            <input type="number" class="form-control" name="kategoriId" required>
+            <input type="text" name="color" placeholder="Warna">
         </div>
-
         <div class="form-group">
-            <label for="stock">gender</label>
-            <input type="number" class="form-control" name="genderId" required>
+            <input type="number" name="price" placeholder="Harga">
         </div>
-
         <div class="form-group">
-            <label for="file">Pilih Gambar</label>
-            <input type="file" class="form-control-file" id="file" name="imgPath">
+            <input type="file" name="1" placeholder="Gambar 1">
         </div>
-        <button type="submit" class="btn btn-primary">Unggah</button>
+        <div class="form-group">
+            <input type="file" name="2" placeholder="Gambar 2">
+        </div>
+        <div class="form-group">
+            <input type="file" name="3" placeholder="Gambar 3">
+        </div>
+        <div class="form-group">
+            <input type="file" name="4" placeholder="Gambar 4">
+        </div>
+        <div class="form-group">
+            <input type="number" name="stock" placeholder="Stok">
+        </div>
+        <div class="form-group">
+            <input type="number" name="seriesId" placeholder="ID Series">
+        </div>
+        <div class="form-group">
+            <input type="number" name="genderId" placeholder="ID Gender">
+        </div>
+        <div class="form-group">
+            <input type="number" name="subCategoryId" placeholder="ID Sub Category">
+        </div>
+        <button type="submit">INPUT</button>
     </form>
 </div>
 

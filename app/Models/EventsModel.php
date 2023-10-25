@@ -9,14 +9,17 @@ use Illuminate\Support\Facades\DB;
 
 class EventsModel extends Model
 {
-    use HasFactory;
+    protected $table = 'events';
+    protected $primaryKey = 'idEvent';
+    protected $guarded = ['idEvent'];
 
     public function getAllEvents(){
         try {
             return DB::table('events')
                 ->select('name','imgPath','slug','eventBegin','eventEnd')
                 ->orderBy('created_at','DESC')
-                ->get();
+                ->get()
+                ->pluck(['name','imgPath','slug','eventBegin','eventEnd']);
         }catch (QueryException $e){
             return collect();
         }

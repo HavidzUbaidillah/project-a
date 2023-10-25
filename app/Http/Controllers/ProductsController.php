@@ -83,29 +83,51 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, ProductsModel $produkModel)
+    public function store(Request $request, ProductsModel $produkModel): JsonResponse
     {
+        $specs = [
+            'color' => 'required',
+            'size' => 'required',
+            'material' => 'required',
+        ];
+
+        $imgData = [
+            '1' => 'required|image',
+            '2' => 'required|image',
+            '3' => 'required|image',
+            '4' => 'required|image',
+        ];
+
         $validate = $request->validate([
-            'nama' => 'required',
-            'deskripsi' => 'required',
-            'harga' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'specs' => json_encode($specs),
+            'price' => 'required',
+            'imgPath' => json_encode($imgData),
             'stock' => 'required',
-            'imgPath' => 'required|image',
-            'kategoriId' => 'required',
+            'seriesId' => 'required',
             'genderId' => 'required',
+            'subCategoryId' => 'required',
         ]);
+        $imgNames = [];
 
-        $image = $request->file('imgPath');
-        $randomString = Str::random(15);
-        $imgNameRandom = substr($image->getClientOriginalName(), 0, 0) . $randomString;
+        foreach ($imgData as $key => $imageData) {
+            $image = $request->file('imgPath.' . $key);
 
-        $imgName = $imgNameRandom . '.webp';
-        $data = array_merge($validate, ['imgPath' => $imgName]);
+            if ($image) {
+                $randomString = Str::random(15);
+                $imgNameRandom = $key . $randomString;
+                $imgName = $imgNameRandom . '.webp';
 
-        $image->move(public_path('storage/genders/'), $imgName);
+                $image->move(public_path('assets/'), $imgName);
 
-        $img = Image::make(public_path('storage/genders/') . $imgName);
-        $img->encode('webp', 75)->save(public_path('storage/genders/') . $imgName);
+                $img = Image::make(public_path('assets/') . $imgName);
+                $img->encode('webp', 75)->save(public_path('assets/') . $imgName);
+
+                $imgNames[$key] = $imgName;
+            }
+        }
+        $data = array_merge($validate, ['imgPath' => json_encode($imgNames)]);
         $query = $produkModel->createProduk($data);
 
         if ($query) {

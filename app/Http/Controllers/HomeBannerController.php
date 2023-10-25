@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EventsModel;
+use App\Models\HomeBannerModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
-class EventsController extends Controller
+class HomeBannerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,15 +28,12 @@ class EventsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, EventsModel $eventsModel)
+    public function store(Request $request, HomeBannerModel $homeBannerModel)
     {
         $validate = $request->validate([
-            'name' => 'required',
-            'discount' => 'required',
-            'imgPath' => 'required|image',
-            'eventBegin' => 'required',
-            'eventEnd' => 'required',
-            'slug' => 'required',
+            'slug' => '',
+            'description' => 'required',
+            'imgPath' => 'required|image'
         ]);
         $image = $request->file('imgPath');
         $randomString = Str::random(15);
@@ -44,12 +41,11 @@ class EventsController extends Controller
 
         $imgName = $imgNameRandom . '.webp';
         $data = array_merge($validate, ['imgPath' => $imgName]);
-
         $image->move(public_path('assets/'), $imgName);
 
         $img = Image::make(public_path('assets/') . $imgName);
         $img->encode('webp', 75)->save(public_path('assets/') . $imgName);
-        $query = $eventsModel->createEvents($data);
+        $query = $homeBannerModel->createNewBanner($data);
         if ($query){
             return response()->json(['message' => 'success']);
         }else{
@@ -60,7 +56,7 @@ class EventsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(EventsModel $events)
+    public function show(string $id)
     {
         //
     }
@@ -68,7 +64,7 @@ class EventsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EventsModel $events)
+    public function edit(string $id)
     {
         //
     }
@@ -76,7 +72,7 @@ class EventsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, EventsModel $events)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -84,7 +80,7 @@ class EventsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EventsModel $events)
+    public function destroy(string $id)
     {
         //
     }

@@ -3,6 +3,8 @@
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\GenderController;
+use App\Http\Controllers\HomeBannerController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\SubCategoriesController;
 use Illuminate\Support\Facades\Route;
@@ -21,15 +23,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/input-gender', function () {
     return view('gender');
 });
+Route::get('/input-produk', function () {
+    return view('input_produk');
+});
 Route::get('/series', function () {
     return view('input_kategori');
 });
 Route::get('/event', function () {
     return view('event');
 });
+Route::get('/banner', function () {
+    return view('banner');
+});
 Route::post('kategori',[CategoriesController::class,'store'])->name('kategori');
 Route::post('/subCat',[SubCategoriesController::class,'store'])->name('subcat');
 Route::post('event', [EventsController::class,'store'])->name('event');
 Route::post('/gender',[GenderController::class,'store'])->name('gender');
 Route::post('series',[SeriesController::class,'store'])->name('series');
+Route::post('product',[ProductsController::class,'store'])->name('product');
+Route::post('banner',[HomeBannerController::class,'store'])->name('banner');
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 
@@ -16,13 +17,14 @@ class GendersModel extends Model
     protected $guarded = ['idGender'];
     protected $fillable = ['gender','imgPath'];
 
-    public function AllDataGender(){
+    public function AllDataGender(): bool|Collection
+    {
         try {
             return DB::table('genders')
                 ->select('gender','imgPath')
                 ->get();
-        }catch (QueryException $e){
-            return collect();
+        }catch (QueryException){
+            return false;
         }
     }
 

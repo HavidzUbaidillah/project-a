@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoriesModel;
 use App\Models\GendersModel;
+use App\Models\HomeBannerModel;
 use App\Models\SeriesModel;
 use App\Models\SubCategoriesModel;
 use Illuminate\Database\QueryException;
@@ -32,31 +33,20 @@ class HomeController extends Controller
         }
 
     }
-    public function index(CategoriesModel $categoriesModel, SubCategoriesModel $subCategoriesModel, GendersModel $gendersModel, SeriesModel $seriesModel): JsonResponse
+    public function index(HomeBannerModel $homeBannerModel,GendersModel $gendersModel, SeriesModel $seriesModel): JsonResponse
     {
         try {
             return response()->json([
                 'message' => 'success',
                 'data' => [
-                    'men' => [
-                        'shoes' => $subCategoriesModel->subCategoriesShoesMen(),
-                        'cloth' => $subCategoriesModel->subCategoriesClothMen(),
-                        'accessories' => $subCategoriesModel->subCategoriesAccesoriesMen(),
-                    ],
-                    'women' => [
-                        'shoes' => $subCategoriesModel->subCategoriesShoesWomen(),
-                        'cloth' => $subCategoriesModel->subCategoriesClothWomen(),
-                        'accessories' => $subCategoriesModel->subCategoriesAccesoriesWomen(),
-                    ],
-                    'kids' => [
+                    'banner1' => $homeBannerModel->banner1(),
+                    'banner2' => $homeBannerModel->banner2(),
+                    'series' => $seriesModel->ALlDataSeries(),
+                    'whatsHot' => [
 
-                    ]
+                    ],
+                    'gender' => $gendersModel->AllDataGender(),
                 ],
-//                    'series' => $seriesModel->ALlDataSeries(),
-//                    'whatsHot' => [
-//
-//                    ],
-//                    'gender' => $gendersModel->AllDataGender(),
             ]);
         }catch (QueryException $e){
             return response()->json(['message'=>'error'],500);

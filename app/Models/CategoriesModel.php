@@ -21,7 +21,8 @@ class CategoriesModel extends Model
             return DB::table('categories')
                 ->select('name')
                 ->orderBy('name','ASC')
-                ->get();
+                ->get()
+                ->pluck('name');
         }catch (QueryException $e){
             return collect();
         }

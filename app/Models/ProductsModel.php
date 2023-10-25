@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class ProductsModel extends Model
 {
-    use HasFactory;
     protected $table  = 'products';
     protected $primaryKey  = 'idProduct';
     protected $guarded = ['idProduct'];
@@ -23,7 +22,7 @@ class ProductsModel extends Model
                 ->select('name','description','price','imgPath')
                 ->orderBy('name')
                 ->get();
-        }catch (QueryException $e){
+        }catch (QueryException){
             return collect();
         }
     }
@@ -35,7 +34,7 @@ class ProductsModel extends Model
                 ->join('products', 'categoryId','=','events.idCategory')
                 ->where('events.name','=',$input)
                 ->get();
-        }catch (QueryException $e){
+        }catch (QueryException){
             return collect();
         }
     }
@@ -48,7 +47,7 @@ class ProductsModel extends Model
                 ->join('products', 'genderId','=','genders.idGender')
                 ->where('genders.gender','=',$input)
                 ->get();
-        }catch (QueryException $e){
+        }catch (QueryException){
             return false;
         }
     }
@@ -60,14 +59,15 @@ class ProductsModel extends Model
                 ->orderBy('created_at','DESC')
                 ->take(5)
                 ->get();
-        }catch (QueryException $e){
+        }catch (QueryException){
             return collect();
         }
     }
 
-    public function createProduk(array $input){
+    public function createProduk(array $input): bool
+    {
         try {
-            return $this->create([
+            $this->create([
                 'name' => $input['name'],
                 'description' => $input['description'],
                 'specs' => json_encode([
@@ -87,8 +87,9 @@ class ProductsModel extends Model
                 'genderId' => $input['genderId'],
                 'subCategoryId' => $input['subCategoryId'],
             ]);
-        }catch (QueryException $e){
-            return collect();
+            return true;
+        }catch (QueryException){
+            return false;
         }
     }
 }
