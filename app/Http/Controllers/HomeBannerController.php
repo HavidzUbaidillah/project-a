@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HomeBannerModel;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -28,7 +29,7 @@ class HomeBannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, HomeBannerModel $homeBannerModel)
+    public function store(Request $request, HomeBannerModel $homeBannerModel): JsonResponse
     {
         $validate = $request->validate([
             'slug' => '',

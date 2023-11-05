@@ -7,19 +7,19 @@
 <body>
 <div class="container mt-5">
     <h2>Insert SubCategories</h2>
-    <form action="{{ route('banner') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('subcat') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="stock">Slogan</label>
-            <input type="text" class="form-control" name="slug">
+            <label for="stock">Name</label>
+            <input type="text" class="form-control" name="name">
         </div>
         <div class="form-group">
-            <label for="stock">Deskripsi</label>
-            <input type="text" class="form-control" name="description" required>
+            <label for="stock">CategoryId</label>
+            <input type="text" class="form-control" name="categoryId">
         </div>
         <div class="form-group">
-            <label for="file">Pilih Gambar</label>
-            <input type="file" class="form-control-file" id="file" name="imgPath">
+            <label for="file">GenderId</label>
+            <input type="text" class="form-control" name="genderId">
         </div>
         <button type="submit" class="btn btn-primary">Unggah</button>
     </form>

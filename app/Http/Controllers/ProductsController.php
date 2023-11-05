@@ -19,7 +19,7 @@ class ProductsController extends Controller
         try {
             return response()->json([
                'message' => 'success',
-                'data' => $produkModel->getDataProduk(),
+                'data' => $produkModel->AllDataProduk(),
             ]);
         }catch (QueryException $e){
             return response()->json([
@@ -43,12 +43,12 @@ class ProductsController extends Controller
             ],500);
         }
     }
-    public function getProdukByGender(ProductsModel $produkModel): JsonResponse
+    public function getProdukByGender(ProductsModel $produkModel, Request $request): JsonResponse
     {
         try {
             return response()->json([
                 'message' => 'success',
-                'data' => [$produkModel->produkByGender('wanita')],
+                'data' => [$produkModel->produkByGender($request)],
             ]);
         }catch (QueryException $e){
             return response()->json([
@@ -57,12 +57,12 @@ class ProductsController extends Controller
             ],500);
         }
     }
-    public function getNewProduk(ProductsModel $produkModel): JsonResponse
+    public function whatsHot(ProductsModel $produkModel): JsonResponse
     {
         try {
             return response()->json([
                'massage' => 'success',
-               'data' => [$produkModel->newProduk()]
+               'data' => [$produkModel->newProducts()]
             ]);
         }catch (QueryException $e){
             return response()->json([
@@ -83,57 +83,53 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, ProductsModel $produkModel): JsonResponse
+    public function store(Request $request, ProductsModel $productsModel): JsonResponse
     {
-        $specs = [
-            'color' => 'required',
-            'size' => 'required',
-            'material' => 'required',
-        ];
-
-        $imgData = [
-            '1' => 'required|image',
-            '2' => 'required|image',
-            '3' => 'required|image',
-            '4' => 'required|image',
-        ];
-
         $validate = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'specs' => json_encode($specs),
+            'color' => 'required',
+            'material' => 'required',
+            'size' => 'required',
             'price' => 'required',
-            'imgPath' => json_encode($imgData),
+            'img1' => 'required|image',
+            'img2' => 'required|image',
+            'img3' => 'required|image',
+            'img4' => 'required|image',
             'stock' => 'required',
             'seriesId' => 'required',
             'genderId' => 'required',
+            'categoryId' => 'required',
             'subCategoryId' => 'required',
         ]);
-        $imgNames = [];
+//        dd($validate);
 
-        foreach ($imgData as $key => $imageData) {
-            $image = $request->file('imgPath.' . $key);
-
-            if ($image) {
-                $randomString = Str::random(15);
-                $imgNameRandom = $key . $randomString;
-                $imgName = $imgNameRandom . '.webp';
-
-                $image->move(public_path('assets/'), $imgName);
-
-                $img = Image::make(public_path('assets/') . $imgName);
-                $img->encode('webp', 75)->save(public_path('assets/') . $imgName);
-
-                $imgNames[$key] = $imgName;
-            }
+        $imgArr = [];
+        foreach (['img1','img2','img3','img4'] as $key){
+            $image = $request->file($key);
+            $randomStr= Str::random(15);
+//            dd($image);$image
+            $imgName = substr($image->getClientOriginalName(),0,0) . $randomStr;
+            $imgNames = $imgName . '.webp';
+            $data = array_merge($validate,   [$key => $imgNames]);
+            $image->move(public_path('assets/'), $imgNames);
+            $imgPaths = public_path('assets/'.$imgNames);
+//            dd($imgPaths);
+            $img = Image::make($imgPaths);
+            $img->encode('webp', 75)->save(public_path('assets/') . $imgName);
+            $imgArr[$key] = $imgNames;
         }
-        $data = array_merge($validate, ['imgPath' => json_encode($imgNames)]);
-        $query = $produkModel->createProduk($data);
 
-        if ($query) {
+        foreach ($imgArr as $key => $value){
+            $data[$key] = $value;
+        }
+
+        $query = $productsModel->createProducts($data);
+//        dd($query);
+        if ($query){
             return response()->json(['message' => 'success']);
-        } else {
-            return response()->json(['message' => 'error']);
+        }else{
+            return response()->json(['message' => 'failed']);
         }
     }
 

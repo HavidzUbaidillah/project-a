@@ -28,7 +28,6 @@ class DatabaseSeeder extends Seeder
             EventProductsSeeder::class,
             EventsSeeder::class,
             GendersSeeder::class,
-            HomeBannerSeeder::class,
             ProductsSeeder::class,
             SeriesSeeder::class,
             SubCategoriesSeeder::class,

@@ -14,16 +14,27 @@ class ProductsModel extends Model
     protected $table  = 'products';
     protected $primaryKey  = 'idProduct';
     protected $guarded = ['idProduct'];
+//    protected $fillable = ['name','description','specs','price','imgPath','stock','seriesId','genderId','subCategoryId'];
+    protected $casts = [
+        'specs' => 'array',
+        'imgPath' => 'array',
+    ];
 
     public function AllDataProduk(): bool|Collection
     {
         try {
-            return DB::table('products')
-                ->select('name','description','price','imgPath')
+            $products = DB::table('products')
+                ->select('name', 'description','price','imgPath','specs')
                 ->orderBy('name')
                 ->get();
+
+            foreach ($products as $product) {
+                $product->imgPath = json_decode(json_decode($product->imgPath), true);
+                $product->specs = json_decode(json_decode($product->specs), true);
+            }
+            return $products;
         }catch (QueryException){
-            return collect();
+            return false;
         }
     }
     public function produkByKategori(Request $input): bool|Collection
@@ -52,10 +63,11 @@ class ProductsModel extends Model
         }
     }
 
-    public function newProduk(){
+    public function newProducts(): Collection
+    {
         try {
             return DB::table('products')
-                ->select('name','description','price')
+                ->select('name','description','price','imgPath')
                 ->orderBy('created_at','DESC')
                 ->take(5)
                 ->get();
@@ -64,7 +76,7 @@ class ProductsModel extends Model
         }
     }
 
-    public function createProduk(array $input): bool
+    public function createProducts($input): bool
     {
         try {
             $this->create([
@@ -76,20 +88,22 @@ class ProductsModel extends Model
                     'material' => $input['material']
                 ]),
                 'price' => $input['price'],
-                'imgPath' => [
-                    '1' => $input['1'],
-                    '2' => $input['2'],
-                    '3' => $input['3'],
-                    '4' => $input['4']
-                ],
+                'imgPath' => json_encode([
+                    'img1' => $input['img1'],
+                    'img2' => $input['img2'],
+                    'img3' => $input['img3'],
+                    'img4' => $input['img4']
+                ]),
                 'stock' => $input['stock'],
                 'seriesId' => $input['seriesId'],
                 'genderId' => $input['genderId'],
+                'categoryId' => $input['categoryId'],
                 'subCategoryId' => $input['subCategoryId'],
             ]);
-            return true;
-        }catch (QueryException){
+        }catch (QueryException $e){
+            error_log($e->getMessage());
             return false;
         }
+        return true;
     }
 }

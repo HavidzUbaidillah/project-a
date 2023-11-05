@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CategoriesModel;
 use App\Models\GendersModel;
 use App\Models\HomeBannerModel;
+use App\Models\ProductsModel;
 use App\Models\SeriesModel;
 use App\Models\SubCategoriesModel;
 use Illuminate\Database\QueryException;
@@ -33,7 +34,7 @@ class HomeController extends Controller
         }
 
     }
-    public function index(HomeBannerModel $homeBannerModel,GendersModel $gendersModel, SeriesModel $seriesModel): JsonResponse
+    public function index(HomeBannerModel $homeBannerModel,GendersModel $gendersModel, SeriesModel $seriesModel, ProductsModel $productsModel): JsonResponse
     {
         try {
             return response()->json([
@@ -42,9 +43,7 @@ class HomeController extends Controller
                     'banner1' => $homeBannerModel->banner1(),
                     'banner2' => $homeBannerModel->banner2(),
                     'series' => $seriesModel->ALlDataSeries(),
-                    'whatsHot' => [
-
-                    ],
+                    'whatsHot' => $productsModel->newProducts(),
                     'gender' => $gendersModel->AllDataGender(),
                 ],
             ]);
