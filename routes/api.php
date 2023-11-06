@@ -23,4 +23,5 @@ Route::apiResource('home', HomeController::class);
 Route::get('/assets',[HomeController::class,'assetsDownload']);
 Route::get('/produk',[ProductsController::class,'index']);
 Route::post('/admin-login', LoginController::class);
+Route::get('/search-products',[ProductsController::class,'searchProductByName']);
 

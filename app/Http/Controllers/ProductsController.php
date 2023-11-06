@@ -21,20 +21,57 @@ class ProductsController extends Controller
                'message' => 'success',
                 'data' => $produkModel->AllDataProduk(),
             ]);
-        }catch (QueryException $e){
+        }catch (QueryException){
             return response()->json([
                'message' =>  'error',
                 'data' => []
             ],500);
         }
     }
-    public function getProdukByKategori(ProductsModel $produkModel): JsonResponse
+    public function getPr(Request $request, ProductsModel $productsModel){
+
+        if ($request->input('categories') && $request->input('gender') && $request->input('range')){
+
+        }
+    }
+
+    public function searchProductByName(ProductsModel $produkModel, Request $input): JsonResponse
     {
-        request()->input('events') != null  && $data = request('input');
+        $keyword = $input->input('search');
+        $products = $produkModel->productByName($keyword);
+        if ($products !== false){
+            return response()->json([
+                'message' => 'success',
+                'data' => $products,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'error',
+                'data' => [],
+            ],500);
+        }
+    }
+
+    public function getProdukByKategori(ProductsModel $produkModel, Request $input): JsonResponse
+    {
         try {
             return response()->json([
                 'message' => 'success',
-                'data' => [$produkModel->produkByKategori(request()->input($data))],
+                'data' => $produkModel->productByCategories($input['input']),
+            ]);
+        }catch (QueryException){
+            return response()->json([
+                'message' => 'error',
+                'data' => [],
+            ],500);
+        }
+    }
+    public function getProductByGender(ProductsModel $produkModel, Request $input): JsonResponse
+    {
+        try {
+            return response()->json([
+                'message' => 'success',
+                'data' => $produkModel->productByGender($input['input']),
             ]);
         }catch (QueryException $e){
             return response()->json([
@@ -43,20 +80,7 @@ class ProductsController extends Controller
             ],500);
         }
     }
-    public function getProdukByGender(ProductsModel $produkModel, Request $request): JsonResponse
-    {
-        try {
-            return response()->json([
-                'message' => 'success',
-                'data' => [$produkModel->produkByGender($request)],
-            ]);
-        }catch (QueryException $e){
-            return response()->json([
-                'message' => 'error',
-                'data' => [],
-            ],500);
-        }
-    }
+
     public function whatsHot(ProductsModel $produkModel): JsonResponse
     {
         try {

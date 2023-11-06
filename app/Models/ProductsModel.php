@@ -37,26 +37,89 @@ class ProductsModel extends Model
             return false;
         }
     }
-    public function produkByKategori(Request $input): bool|Collection
+
+    public function searchParam($categories, $gender, $range){
+        try {
+            $query = DB::table('products')
+                ->select('products.name', 'products.description', 'products.specs', 'products.price')
+                ->join('categories', 'products.categoryId', '=', 'categories.idCategory')
+                ->join('genders', 'products.genderId', '=', 'genders.idGender');
+
+            if (!empty($range)) {
+                $query->where('price','between', $range);
+            }
+            if (!empty($gender)) {
+                $query->where('genders.gender', 'like', '%'.$gender.'%');
+            }
+            if (!empty($categories)) {
+                $query->where('categories.name', 'like', '%' . $categories . '%');
+            }
+
+            $products = $query->get();
+
+
+            foreach ($products as $product) {
+                $product->specs = json_decode(json_decode($product->specs));
+            }
+            return $products;
+        }catch (QueryException){
+            return false;
+        }
+    }
+
+    public function productByName($input): bool|Collection
     {
         try {
-            return DB::table('events')
+            $products = DB::table('products')
+                ->select('products.idProduct','products.name','description','specs','price','genders.gender','sub_categories.name as subCategory_name')
+                ->join('genders','IdGender','=','products.genderId')
+                ->join('sub_categories','idSubCategory','=','products.subCategoryId')
+                ->where('products.name','like', '%'.$input.'%')
+                ->get();
+            foreach ($products as $product) {
+                $product->specs = json_decode(json_decode($product->specs));
+            }
+            return $products;
+        }catch (QueryException){
+            return false;
+        }
+    }
+
+    public function productByCategories($input): bool|Collection
+    {
+        try {
+            return DB::table('products')
                 ->select('products.name','products.description','products.price')
-                ->join('products', 'categoryId','=','events.idCategory')
-                ->where('events.name','=',$input)
+                ->join('categories', 'categoryId','=','categories.idCategory')
+                ->where('categories.name','like','%'.$input.'%')
+                ->take(100)
                 ->get();
         }catch (QueryException){
             return collect();
         }
     }
 
-    public function produkByGender(Request $input): bool|Collection
+    public function productByGender($input): bool|Collection
     {
         try {
-            return DB::table('genders')
+            return DB::table('products')
                 ->select('products.name','products.description','products.price')
-                ->join('products', 'genderId','=','genders.idGender')
-                ->where('genders.gender','=',$input)
+                ->join('genders', 'genderId','=','genders.idGender')
+                ->where('genders.gender','like','%'.$input.'%')
+                ->get();
+        }catch (QueryException){
+            return false;
+        }
+    }
+
+
+    public function productBySeries($input): bool|Collection
+    {
+        try {
+            return DB::table('products')
+                ->select('products.name','products.description','products.price')
+                ->join('series', 'seriesId','=','series.idSeries')
+                ->where('series.name','like','%'.$input.'%')
                 ->get();
         }catch (QueryException){
             return false;

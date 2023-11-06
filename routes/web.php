@@ -46,3 +46,4 @@ Route::post('series',[SeriesController::class,'store'])->name('series');
 Route::post('product',[ProductsController::class,'store'])->name('product');
 Route::post('banner',[HomeBannerController::class,'store'])->name('banner');
 Route::get('/produk',[ProductsController::class,'index']);
+Route::get('/search',[ProductsController::class,'searchProductByName']);
