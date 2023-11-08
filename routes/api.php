@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('genders', GenderController::class);
 Route::apiResource('home', HomeController::class);
-Route::get('/assets',[HomeController::class,'assetsDownload']);
+Route::get('/assets/{image}',[HomeController::class,'assetsDownload']);
 Route::get('/produk',[ProductsController::class,'index']);
 Route::post('/admin-login', LoginController::class);
 Route::get('/search-products',[ProductsController::class,'searchProductByName']);

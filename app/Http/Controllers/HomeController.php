@@ -20,14 +20,11 @@ class HomeController extends Controller
      * Display a listing of the resource.
      */
 
-    public function assetsDownload($image): StreamedResponse|JsonResponse
+    public function assetsDownload($image)
     {
         try {
-            if ($image != null) {
-                return Storage::download('public/assets/'.$image);
-            }
-            else{
-                throw new \Error();
+            if ($image !== '') {
+                Storage::download(public_path('assets/'.$image));
             }
         }catch (\Exception){
             return response()->json(['message'=>'error']);

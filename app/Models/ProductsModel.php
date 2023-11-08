@@ -8,6 +8,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Scalar\String_;
 
 class ProductsModel extends Model
 {
@@ -38,26 +39,24 @@ class ProductsModel extends Model
         }
     }
 
-    public function searchParam($categories, $gender, $range){
+    public function searchParam($categories, $gender, $min, $max): bool|Collection
+    {
         try {
             $query = DB::table('products')
-                ->select('products.name', 'products.description', 'products.specs', 'products.price')
-                ->join('categories', 'products.categoryId', '=', 'categories.idCategory')
+                ->select('products.name','genders.gender', 'products.description', 'products.specs', 'products.price')
+                ->join('categories','products.categoryId','=','categories.idCategory')
                 ->join('genders', 'products.genderId', '=', 'genders.idGender');
 
-            if (!empty($range)) {
-                $query->where('price','between', $range);
+            if ($min !='' && $max !='') {
+                $query->whereBetween('products.price', [$min, $max]);
             }
             if (!empty($gender)) {
-                $query->where('genders.gender', 'like', '%'.$gender.'%');
+                $query->where('genders.gender', 'like', '%' . $gender . '%');
             }
             if (!empty($categories)) {
                 $query->where('categories.name', 'like', '%' . $categories . '%');
             }
-
             $products = $query->get();
-
-
             foreach ($products as $product) {
                 $product->specs = json_decode(json_decode($product->specs));
             }
@@ -71,12 +70,14 @@ class ProductsModel extends Model
     {
         try {
             $products = DB::table('products')
-                ->select('products.idProduct','products.name','description','specs','price','genders.gender','sub_categories.name as subCategory_name')
+                ->select('products.idProduct','products.name','description','products.imgPath','specs','price','genders.gender','sub_categories.name as subCategory_name')
                 ->join('genders','IdGender','=','products.genderId')
                 ->join('sub_categories','idSubCategory','=','products.subCategoryId')
                 ->where('products.name','like', '%'.$input.'%')
+                ->take(4)
                 ->get();
             foreach ($products as $product) {
+                $product->imgPath = json_decode(json_decode($product->imgPath));
                 $product->specs = json_decode(json_decode($product->specs));
             }
             return $products;

@@ -28,10 +28,25 @@ class ProductsController extends Controller
             ],500);
         }
     }
-    public function getPr(Request $request, ProductsModel $productsModel){
-
-        if ($request->input('categories') && $request->input('gender') && $request->input('range')){
-
+    public function getPr(Request $request, ProductsModel $productsModel)
+    {
+        $paramCat = $request->input('categories');
+        $paramGen = $request->input('gender');
+//        $paramRan = $request->input('range');
+        $paramMin = $request->input('min');
+        $paramMax = $request->input('max');
+        $products = $productsModel->searchParam($paramCat,$paramGen,$paramMin,$paramMax);
+        if ($products !== false){
+            return response()->json([
+                'message' => 'success',
+                'data' => $products
+            ]);
+//            return route('tolol');
+        }else{
+            return response()->json([
+                'message' => 'error',
+                'data' => []
+            ],500);
         }
     }
 
