@@ -32,7 +32,6 @@ class CategoriesModel extends Model
         try {
             return $this->create([
                 'name' => $input['name'],
-                'imgPath' => $input['imgPath'],
             ]);
         }catch (QueryException $e){
             return collect();

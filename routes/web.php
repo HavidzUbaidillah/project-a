@@ -39,6 +39,9 @@ Route::get('/banner', function () {
 Route::get('/gender', function (){
     return view('gender');
 });
+Route::get('/kategori', function (){
+    return view('kategori');
+});
 Route::post('kategori',[CategoriesController::class,'store'])->name('kategori');
 Route::post('/subCat',[SubCategoriesController::class,'store'])->name('subcat');
 Route::post('event', [EventsController::class,'store'])->name('event');
@@ -46,7 +49,7 @@ Route::post('/gender',[GenderController::class,'store'])->name('gender');
 Route::post('series',[SeriesController::class,'store'])->name('series');
 Route::post('product',[ProductsController::class,'store'])->name('product');
 Route::post('banner',[HomeBannerController::class,'store'])->name('banner');
-Route::get('/produk',[ProductsController::class,'index']);
+//Route::get('/produk',[ProductsController::class,'index']);
 Route::get('/search',[ProductsController::class,'searchProductByName']);
-Route::get('/assets/{image}',[HomeController::class,'assetsDownload']);
-Route::get('/search-param',[ProductsController::class,'getPr']);
+Route::get('/assets',[HomeController::class,'assetsDownload']);
+Route::get('/search-param', [ProductsController::class, 'getPr']);

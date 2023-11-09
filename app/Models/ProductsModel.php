@@ -39,7 +39,7 @@ class ProductsModel extends Model
         }
     }
 
-    public function searchParam($categories, $gender, $min, $max): bool|Collection
+    public function searchSide($categories, $gender, $min, $max): bool|Collection
     {
         try {
             $query = DB::table('products')
@@ -169,5 +169,11 @@ class ProductsModel extends Model
             return false;
         }
         return true;
+    }
+
+    public function deleteProduct($id){
+        return DB::table('products')
+            ->where('idProduct',$id)
+            ->delete();
     }
 }

@@ -29,7 +29,7 @@ class HomeController extends Controller
         }catch (\Exception){
             return response()->json(['message'=>'error']);
         }
-
+        return response()->json('');
     }
     public function index(HomeBannerModel $homeBannerModel,GendersModel $gendersModel, SeriesModel $seriesModel, ProductsModel $productsModel): JsonResponse
     {
