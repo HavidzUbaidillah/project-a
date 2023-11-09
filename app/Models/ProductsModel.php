@@ -43,7 +43,7 @@ class ProductsModel extends Model
     {
         try {
             $query = DB::table('products')
-                ->select('products.name','genders.gender', 'products.description', 'products.specs','products.imgPath', 'products.price')
+                ->select('products.idProduct','products.name','genders.gender', 'products.description', 'products.specs','products.imgPath', 'products.price')
                 ->join('categories','products.categoryId','=','categories.idCategory')
                 ->join('genders', 'products.genderId', '=', 'genders.idGender');
 
@@ -96,6 +96,25 @@ class ProductsModel extends Model
                 ->join('sub_categories','idSubCategory','=','products.subCategoryId')
                 ->where('products.name','like', '%'.$input.'%')
                 ->take(4)
+                ->get();
+            foreach ($products as $product) {
+                $product->imgPath = json_decode(json_decode($product->imgPath));
+                $product->specs = json_decode(json_decode($product->specs));
+            }
+            return $products;
+        }catch (QueryException){
+            return false;
+        }
+    }
+
+    public function dataProductById($input): bool|Collection
+    {
+        try {
+            $products = DB::table('products')
+                ->select('products.idProduct','products.name','description','products.imgPath','specs','price','genders.gender','sub_categories.name as subCategory_name')
+                ->join('genders','IdGender','=','products.genderId')
+                ->join('sub_categories','idSubCategory','=','products.subCategoryId')
+                ->where('products.idProduct','=', $input)
                 ->get();
             foreach ($products as $product) {
                 $product->imgPath = json_decode(json_decode($product->imgPath));

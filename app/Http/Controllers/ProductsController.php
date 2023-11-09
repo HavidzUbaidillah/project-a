@@ -65,12 +65,12 @@ class ProductsController extends Controller
         }
     }
 
-    public function getProdukByKategori(ProductsModel $produkModel, Request $input): JsonResponse
+    public function getProductById(ProductsModel $produkModel, Request $input): JsonResponse
     {
         try {
             return response()->json([
                 'message' => 'success',
-                'data' => $produkModel->productByCategories($input['input']),
+                'data' => $produkModel->dataProductById($input['input']),
             ]);
         }catch (QueryException){
             return response()->json([
@@ -84,7 +84,7 @@ class ProductsController extends Controller
         try {
             return response()->json([
                 'message' => 'success',
-                'data' => $produkModel->productByName($input['input']),
+                'data' => $produkModel->dataProductByName($input['input']),
             ]);
         }catch (QueryException $e){
             return response()->json([

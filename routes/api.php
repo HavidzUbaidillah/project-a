@@ -38,6 +38,8 @@ Route::middleware('guest')->group(function (){
     Route::get('/top-series',[]);
     Route::get('/products', [ProductsController::class,'getPr']);
     Route::get('/search-products',[ProductsController::class,'searchProductByName']);
+    Route::get('/products-by-search',[ProductsController::class,'getProductByName']);
+    Route::get('/product',[ProductsController::class,'getProductById']);
 });
 Route::apiResource('genders', GenderController::class);
 Route::get('/home', [HomeController::class,'index']);
