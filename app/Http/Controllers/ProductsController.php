@@ -79,12 +79,12 @@ class ProductsController extends Controller
             ],500);
         }
     }
-    public function getProductByGender(ProductsModel $produkModel, Request $input): JsonResponse
+    public function getProductByName(ProductsModel $produkModel, Request $input): JsonResponse
     {
         try {
             return response()->json([
                 'message' => 'success',
-                'data' => $produkModel->productByGender($input['input']),
+                'data' => $produkModel->productByName($input['input']),
             ]);
         }catch (QueryException $e){
             return response()->json([
