@@ -51,11 +51,14 @@ class ProductsController extends Controller
     public function searchProductByName(ProductsModel $produkModel, Request $input): JsonResponse
     {
         $keyword = $input->input('search');
-        $products = $produkModel->productByName($keyword);
-        if ($products !== false){
+        $query = $produkModel->productByName($keyword);
+        if ($query !== false){
             return response()->json([
                 'message' => 'success',
-                'data' => $products,
+                'data' => [
+                    'series' => $query['series'],
+                    'products' => $query['products'],
+                ],
             ]);
         }else{
             return response()->json([

@@ -33,7 +33,7 @@ Route::get('/series', function () {
 Route::get('/event', function () {
     return view('event');
 });
-Route::get('/banner', function () {
+Route::get('/subCat', function () {
     return view('banner');
 });
 Route::get('/gender', function (){

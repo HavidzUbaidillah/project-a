@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Scalar\String_;
+use function PHPUnit\Framework\isEmpty;
 
 class ProductsModel extends Model
 {
@@ -43,9 +44,10 @@ class ProductsModel extends Model
     {
         try {
             $query = DB::table('products')
-                ->select('products.idProduct','products.name','genders.gender', 'products.description', 'products.specs','products.imgPath', 'products.price')
+                ->select('products.idProduct','products.name','genders.gender', 'products.specs','products.imgPath', 'products.price', 'genders.gender','sub_categories.name as subCategory')
                 ->join('categories','products.categoryId','=','categories.idCategory')
-                ->join('genders', 'products.genderId', '=', 'genders.idGender');
+                ->join('genders', 'products.genderId', '=', 'genders.idGender')
+                ->join('sub_categories','products.subCategoryId','=','sub_categories.idSubCategory');
 
             if ($min !='' && $max !='') {
                 $query->whereBetween('products.price', [$min, $max]);
@@ -67,24 +69,41 @@ class ProductsModel extends Model
         }
     }
 
-    public function productByName($input): bool|Collection
+    public function productByName($input): array | bool
     {
         try {
+            $series = DB::table('series')
+                ->select('series.idSeries', 'series.name', DB::raw('COUNT(products.idProduct) as productCount'))
+                ->leftJoin('products', 'series.idSeries', '=', 'products.seriesId')
+                ->where('series.name', 'like', '%'.$input.'%')
+                ->groupBy('series.idSeries', 'series.name');
+
             $products = DB::table('products')
-                ->select('products.idProduct','products.name','description','products.imgPath','specs','price','genders.gender','sub_categories.name as subCategory_name')
+                ->select('products.idProduct','products.name','description','products.imgPath','specs','price','genders.gender','sub_categories.name as subCategory')
                 ->join('genders','IdGender','=','products.genderId')
-                ->join('sub_categories','idSubCategory','=','products.subCategoryId')
-                ->where('products.name','like', '%'.$input.'%')
-                ->take(4)
-                ->get();
-            foreach ($products as $product) {
-                $product->imgPath = json_decode(json_decode($product->imgPath));
-                $product->specs = json_decode(json_decode($product->specs));
+                ->join('sub_categories','idSubCategory','=','products.subCategoryId');
+
+            if (!empty($input)){
+                $products->where('products.name','like', '%'.$input.'%')
+                    ->take(4);
             }
-            return $products;
+
+            $data = [
+                'series' => $series->get(),
+                'products' => $products->get()
+            ];
+            foreach ($data["products"] as $datas) {
+                $datas->imgPath = json_decode(json_decode($datas->imgPath));
+                $datas->specs = json_decode(json_decode($datas->specs));
+            }
+            return $data;
         }catch (QueryException){
             return false;
         }
+    }
+
+    public function dataSubCategorySearch($input){
+
     }
 
     public function dataProductByName($input): bool|Collection

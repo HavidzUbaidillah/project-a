@@ -40,4 +40,17 @@ class SeriesModel extends Model
         }
     }
 
+    public function latestSeries(): Collection | bool
+    {
+        try {
+            return DB::table('series')
+                ->select('idSeries','name')
+                ->orderBy('updated_at','ASC')
+                ->take(4)
+                ->get();
+        }catch (QueryException){
+            return false;
+        }
+    }
+
 }

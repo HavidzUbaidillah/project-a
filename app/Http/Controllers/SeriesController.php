@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SeriesModel;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -16,6 +17,18 @@ class SeriesController extends Controller
     public function index()
     {
         //
+    }
+
+    public function getLatestSeries(SeriesModel $seriesModel): JsonResponse
+    {
+        try {
+            return response()->json([
+               'message' => 'success',
+                'data' => $seriesModel->latestSeries()
+            ]);
+        }catch (QueryException){
+            return response()->json(['message' => 'error'],500);
+        }
     }
 
     /**

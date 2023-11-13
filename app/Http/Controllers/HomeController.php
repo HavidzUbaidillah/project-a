@@ -12,7 +12,6 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class HomeController extends Controller
 {
@@ -20,7 +19,7 @@ class HomeController extends Controller
      * Display a listing of the resource.
      */
 
-    public function assetsDownload($image)
+    public function assetsDownload($image): JsonResponse
     {
         try {
             if ($image !== '') {
