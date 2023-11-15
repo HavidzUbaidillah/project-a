@@ -6,6 +6,7 @@ use App\Http\Controllers\GenderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SeriesController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\SubCategoriesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,7 @@ Route::middleware('guest')->group(function (){
     Route::get('/products-by-search',[ProductsController::class,'getProductByName']);
     Route::get('/product',[ProductsController::class,'getProductById']);
     Route::get('/latest-series',[SeriesController::class,'getLatestSeries']);
+    Route::get('/store-update',[StoreController::class,'checkStoreUpdate']);
 });
 Route::apiResource('genders', GenderController::class);
 Route::get('/home', [HomeController::class,'index']);

@@ -44,7 +44,7 @@ class ProductsModel extends Model
     {
         try {
             $query = DB::table('products')
-                ->select('products.idProduct','products.name','genders.gender', 'products.specs','products.imgPath', 'products.price', 'genders.gender','sub_categories.name as subCategory')
+                ->select('products.idProduct','products.name','genders.gender', 'products.specs','products.imgPath', 'products.price', 'genders.gender','sub_categories.name as subCategory',)
                 ->join('categories','products.categoryId','=','categories.idCategory')
                 ->join('genders', 'products.genderId', '=', 'genders.idGender')
                 ->join('sub_categories','products.subCategoryId','=','sub_categories.idSubCategory');
@@ -65,6 +65,18 @@ class ProductsModel extends Model
             }
             return $products;
         }catch (QueryException){
+            return false;
+        }
+    }
+
+    public function productLastUpdate()
+    {
+        try {
+            return DB::table('products')
+                ->orderBy('updated_at', 'desc')
+                ->pluck('updated_at')
+                ->first();
+        } catch (QueryException) {
             return false;
         }
     }
