@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\AdminModel;
+use App\Models\UserModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    public function __invoke(Request $request, AdminModel $adminModel): JsonResponse
+    public function __invoke(Request $request, UserModel $userModel): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'username' => 'required',
@@ -25,21 +25,21 @@ class LoginController extends Controller
         }
         $credentials = $request->only('username', 'password');
 
-        if(!$token = auth()->guard('admin')->attempt($credentials)) {
+        if(!$token = auth()->guard('user')->attempt($credentials)) {
             return response()->json([
                 'message' => 'Username or Password is wrong',
             ], 401);
         }
         return response()->json([
             'message' => 'Success',
-            'user'    => auth()->guard('admin')->user(),
+            'user'    => auth()->guard('user')->user(),
             'token'   => $token
         ], 200);
     }
 
     public function logout(): JsonResponse
     {
-        auth('admin')->logout();
+        auth('user')->logout();
 
         return response()->json([
             'message' => 'Successfully logged out'

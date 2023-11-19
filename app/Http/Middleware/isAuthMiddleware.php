@@ -16,7 +16,7 @@ class isAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::guard('admin')->check())
+        if (!Auth::guard('user')->check())
             abort(404);
         return $next($request);
     }
